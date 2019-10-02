@@ -20,6 +20,7 @@ namespace CasaDoCodigo
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+		//Adiciona os serviços
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -30,7 +31,8 @@ namespace CasaDoCodigo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		// Console os serviços
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -48,8 +50,11 @@ namespace CasaDoCodigo
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Pedido}/{action=Carrossel}/{id?}");
             });
+
+			//caso base seja apagada, cria novamente quando a aplicação for executada
+			serviceProvider.GetService<ApplicantionContext>().Database.EnsureCreated();
         }
     }
 }
