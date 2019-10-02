@@ -10,51 +10,56 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CasaDoCodigo
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+		// This method gets called by the runtime. Use this method to add services to the container.
 		//Adiciona os serviços
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc();
-            string connectionString = Configuration.GetConnectionString("Default");
-            services.AddDbContext<ApplicantionContext>(options =>
-                options.UseSqlServer(connectionString)
-            );
-        }
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddMvc();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+			var connecitonString = Configuration.GetConnectionString("Default");
+			services.AddDbContext<ApplicationContext>(options => 
+						options.UseSqlServer(connecitonString));
+
+			services.AddTransient<IDataService, DataService>();
+		}
+
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		// Console os serviços
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+			IServiceProvider serviceProvider)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseBrowserLink();
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Pedido}/{action=Carrossel}/{id?}");
-            });
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Pedido}/{action=Carrossel}/{id?}");
+			});
 
 			//caso base seja apagada, cria novamente quando a aplicação for executada
-			serviceProvider.GetService<ApplicantionContext>().Database.EnsureCreated();
-        }
-    }
+			//método garanta que tenha sido criado
+			serviceProvider.GetService<IDataService>().InicializaDb();
+		}
+	}
+
 }

@@ -10,8 +10,8 @@ using System;
 
 namespace CasaDoCodigo.Migrations
 {
-    [DbContext(typeof(ApplicantionContext))]
-    partial class ApplicantionContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationContext))]
+    partial class ApplicationContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

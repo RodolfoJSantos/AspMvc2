@@ -10,9 +10,9 @@ using System;
 
 namespace CasaDoCodigo.Migrations
 {
-    [DbContext(typeof(ApplicantionContext))]
-    [Migration("20190926011044_Modelo")]
-    partial class Modelo
+    [DbContext(typeof(ApplicationContext))]
+    [Migration("20191002191953_modelo")]
+    partial class modelo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

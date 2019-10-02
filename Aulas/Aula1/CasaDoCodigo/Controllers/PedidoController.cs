@@ -13,17 +13,18 @@ namespace CasaDoCodigo.Controllers
             return View();
         }
 
-		public IActionResult Cadastro()
+
+        public IActionResult Cadastro()
         {
             return View();
         }
 
-		public IActionResult Carrinho()
+        public IActionResult Carrinho()
         {
             return View();
         }
 
-		public IActionResult Resumo()
+        public IActionResult Resumo()
         {
             return View();
         }
