@@ -1,4 +1,5 @@
-﻿using CasaDoCodigo.Repositories;
+﻿using CasaDoCodigo.Models;
+using CasaDoCodigo.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace CasaDoCodigo.Controllers
     public class PedidoController : Controller
     {
         private readonly IProdutoRepository _produtoRepository;
-        public PedidoController(IProdutoRepository produtoRepository)
+        private readonly IPedidoRepository _pedidoRepository;
+
+        public PedidoController(IProdutoRepository produtoRepository, IPedidoRepository pedidoRepository)
         {
             _produtoRepository = produtoRepository;
+            _pedidoRepository = pedidoRepository;
         }
 
         public IActionResult Carrossel()
@@ -28,6 +32,7 @@ namespace CasaDoCodigo.Controllers
 
         public IActionResult Carrinho()
         {
+            //Pedido pedido = _pedidoRepository.GetPedido();
             return View();
         }
 

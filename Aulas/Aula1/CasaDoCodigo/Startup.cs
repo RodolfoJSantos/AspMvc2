@@ -25,6 +25,9 @@ namespace CasaDoCodigo
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
 
 			var connecitonString = Configuration.GetConnectionString("Default");
 			services.AddDbContext<ApplicationContext>(options => 
@@ -52,12 +55,13 @@ namespace CasaDoCodigo
 			}
 
 			app.UseStaticFiles();
+            app.UseSession();
 
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
 					name: "default",
-					template: "{controller=Pedido}/{action=Carrossel}/{id?}");
+					template: "{controller=Pedido}/{action=Carrossel}/{codigo?}");
 			});
 
 			//caso base seja apagada, cria novamente quando a aplicação for executada
