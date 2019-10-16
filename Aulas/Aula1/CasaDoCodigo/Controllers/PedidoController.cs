@@ -32,7 +32,7 @@ namespace CasaDoCodigo.Controllers
 
         public IActionResult Carrinho(string codigo)
         {
-            if (string.IsNullOrEmpty(codigo))
+            if (!string.IsNullOrEmpty(codigo))
             {
                 _pedidoRepository.Additem(codigo);
             }
@@ -44,7 +44,9 @@ namespace CasaDoCodigo.Controllers
 
         public IActionResult Resumo()
         {
-            return View();
+            var pedido = _pedidoRepository.GetPedido();
+
+            return View(pedido);
         }
     }
 }
