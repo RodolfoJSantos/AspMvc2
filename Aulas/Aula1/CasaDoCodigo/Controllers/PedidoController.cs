@@ -55,11 +55,15 @@ namespace CasaDoCodigo.Controllers
         }
 
 		[HttpPost]
-        public IActionResult Resumo([FromBody]Cadastro cadastro)
+		[ValidateAntiForgeryToken]
+        public IActionResult Resumo(Cadastro cadastro)
         {
-            var pedido = _pedidoRepository.GetPedido();
+			if (ModelState.IsValid)
+			{
+				return View(_pedidoRepository.UpdateCadastro(cadastro));
+			}
 
-            return View(pedido);
+			return RedirectToAction("cadastro");
         }
 
         [HttpPost]

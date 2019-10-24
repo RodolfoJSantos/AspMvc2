@@ -43,25 +43,40 @@ namespace CasaDoCodigo.Models
         }
 
         public virtual Pedido Pedido { get; set; }
-        [Required]
+		[MinLength(5, ErrorMessage ="Nome de ve ter no ínimo 5 caracteres")]
+		[MaxLength(50, ErrorMessage ="Nome de ve ter no máximo 50 caracteres")]
+        [Required(ErrorMessage ="Nome é obrigadório")]
         public string Nome { get; set; } = "";
-        [Required]
-        public string Email { get; set; } = "";
-        [Required]
-        public string Telefone { get; set; } = "";
-        [Required]
-        public string Endereco { get; set; } = "";
-        [Required]
-        public string Complemento { get; set; } = "";
-        [Required]
-        public string Bairro { get; set; } = "";
-        [Required]
-        public string Municipio { get; set; } = "";
-        [Required]
-        public string UF { get; set; } = "";
-        [Required]
-        public string CEP { get; set; } = "";
-    }
+		[Required(ErrorMessage = "Email é obrigadório")]
+		public string Email { get; set; } = "";
+		[Required(ErrorMessage = "Telefone é obrigadório")]
+		public string Telefone { get; set; } = "";
+		[Required(ErrorMessage = "Endereco é obrigadório")]
+		public string Endereco { get; set; } = "";
+		[Required(ErrorMessage = "Complemento é obrigadório")]
+		public string Complemento { get; set; } = "";
+		[Required(ErrorMessage = "Bairro é obrigadório")]
+		public string Bairro { get; set; } = "";
+		[Required(ErrorMessage = "Municipio é obrigadório")]
+		public string Municipio { get; set; } = "";
+		[Required(ErrorMessage = "UF é obrigadório")]
+		public string UF { get; set; } = "";
+		[Required(ErrorMessage = "CEP é obrigadório")]
+		public string CEP { get; set; } = "";
+
+		internal void Update(Cadastro novoCadastro)
+		{
+			this.Bairro = novoCadastro.Bairro;
+			this.CEP = novoCadastro.CEP;
+			this.Complemento = novoCadastro.Complemento;
+			this.Email = novoCadastro.Email;
+			this.Endereco = novoCadastro.Endereco;
+			this.Municipio = novoCadastro.Municipio;
+			this.Nome = novoCadastro.Nome;
+			this.Telefone = novoCadastro.Telefone;
+			this.UF = novoCadastro.UF;
+		}
+	}
 
     [DataContract]
     public class ItemPedido : BaseModel
