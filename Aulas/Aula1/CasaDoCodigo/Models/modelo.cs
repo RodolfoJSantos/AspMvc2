@@ -82,6 +82,9 @@ namespace CasaDoCodigo.Models
         [DataMember]
         public decimal PrecoUnitario { get; private set; }
 
+		[DataMember]
+		public decimal Subtotal => Quantidade * PrecoUnitario;
+
         public ItemPedido()
         {
 
